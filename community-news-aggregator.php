@@ -24,6 +24,7 @@ function admin_cna_menu()
 {
 	add_menu_page("Community News Aggregator","Configure Your Blog",'administrator','cna-parent-menu','create_menu');		
 	add_submenu_page('cna-parent-menu','Community News Aggregator','Settings','administrator','cna-admin-config','create_admin_page');
+	add_action('admin_init','cna_init_settings');
 }
 function subscriber_cna_menu()
 {
@@ -41,11 +42,15 @@ function create_menu()
 	$plugin_dir=plugin_dir_path(dirname(__FILE__).'/community-news-aggregator.php');
 
 	//load blog settings form
-	include $plugin_dir.'/blog-settings-form.php';
+	include $plugin_dir.'/cna-blog-settings-form.php';
 }
 
 function create_admin_page()
 {
-	echo 'this is the admin page';
+	$plugin_url=plugin_dir_url(dirname(__FILE__).'/community-news-aggregator.php');
+	$plugin_dir=plugin_dir_path(dirname(__FILE__).'/community-news-aggregator.php');
+	include $plugin_dir.'/cna-admin.php';
+	add_action('admin_init','cna_init_settings');
 }
+	
 
