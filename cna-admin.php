@@ -1,5 +1,5 @@
 <?php
-function cna_init_settings()
+function cna_init_admin_settings()
 {
 	register_setting('cna-settings','cna-community-label');
 	add_settings_section('cna-community-settings','','community_settings_form','cna-admin-config');
