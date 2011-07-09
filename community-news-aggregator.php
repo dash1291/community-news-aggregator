@@ -17,9 +17,17 @@ function cna_include()
 	{
 		jQuery("#cna-status-container").show();
 		jQuery.post(ajaxurl,{'action':'cna'},function(response)
-		{
-			jQuery("#cna-loading").hide();
-			document.getElementById("cna-status").innerHTML="Updated";
+		{	
+			docparser=new DOMParser();
+			statusdoc=docparser.parseFromString(response,"text/xml");
+			status=statusdoc.getElementsByTagName("status")[0].childNodes[0].nodeValue;
+			if(status=='ok'){		
+				time=statusdoc.getElementsByTagName("time")[0].childNodes[0].nodeValue;
+				jQuery("#cna-loading").hide();
+				document.getElementById("cna-status").innerHTML="Updated";
+				document.getElementById("cna-update-time").innerHTML=time;
+				
+			}
 		});
 
 	}
